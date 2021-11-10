@@ -8,6 +8,6 @@ SELECT COUNT(*) as poison_count from pokemons p JOIN types t on p.secondary_type
 """next"""
 SELECT t.name, COUNT(*) number_of_types FROM types t JOIN pokemons p ON t.id = p.primary_type GROUP BY t.name;
 """next"""
-SELECT t.trainerId, t.trainername, COUNT(*) as lvl_one_hundred_count FROM pokemon_trainer JOIN trainers t ON t.trainerID = pokemon_trainer.trainerID WHERE pokeleve = 100 GROUP BY pokemon_trainer.trainerID ORDER BY lvl_one_hundred_count desc:
+SELECT trainerID, COUNT(pokemon_id) num_pokemon FROM pokemon_trainer WHERE pokelevel = 100 GROUP BY  trainerID ORDER BY COUNT(pokemon_id);
 """next"""
-SELECT COUNT(*) as total_pokemon_with_one_trainer FROM (SELECT pt.pokemon_id, COUNT(pt.trainerId) as trainer_count from pokemon_trainer pt JOIN pokemons p ON pt.pokemon_id = p.id GROUP BY pt.pokemon_id HAVING trainer_count =1) as pokemon_to_trainer_count;
+SELECT p.name FROM pokemon_trainer pt JOIN pokemons p ON p.id = pt.pokemon_id GROUP BY pokemon_id HAVING COUNT(trainerID) = 1;
